@@ -17,6 +17,7 @@ public class SpringSecuriteH2Application {
         SpringApplication.run(SpringSecuriteH2Application.class, args);
     }
 
+    //Creation des utilisateur dans la base
     @Bean
     CommandLineRunner start(AccountService accountService){
         return args -> {
