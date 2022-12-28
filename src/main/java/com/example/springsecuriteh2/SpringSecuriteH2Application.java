@@ -7,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 
@@ -15,6 +17,12 @@ public class SpringSecuriteH2Application {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringSecuriteH2Application.class, args);
+    }
+
+    // Creation de l'objet PasswordEncoder pour encoder le mot de passe
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
     //Creation des utilisateur dans la base

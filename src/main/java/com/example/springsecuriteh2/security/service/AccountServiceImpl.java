@@ -4,6 +4,7 @@ import com.example.springsecuriteh2.security.entity.AppRole;
 import com.example.springsecuriteh2.security.entity.AppUser;
 import com.example.springsecuriteh2.security.repository.AppRoleRepository;
 import com.example.springsecuriteh2.security.repository.AppUserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +17,18 @@ public class AccountServiceImpl implements AccountService {
     //L'injection des dependance
     private AppUserRepository appUserRepository;
     private AppRoleRepository appRoleRepository;
+    private PasswordEncoder passwordEncoder;
 
-    public AccountServiceImpl(AppUserRepository appUserRepository, AppRoleRepository appRoleRepository) {
+    public AccountServiceImpl(AppUserRepository appUserRepository, AppRoleRepository appRoleRepository, PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
         this.appRoleRepository = appRoleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public AppUser addNewUser(AppUser appUser) {
+        String pw = appUser.getPassword();
+        appUser.setPassword(passwordEncoder.encode(pw));
         return appUserRepository.save(appUser);
     }
 
